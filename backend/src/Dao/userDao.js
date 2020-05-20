@@ -61,8 +61,27 @@ module.exports = {
         return user;
     },
 
+    async getByEmail(email) {
+        const user = await connection.table('users')
+        .where('email', email)
+        .select({
+            id: 'id',
+            name: 'name',
+            phone: 'phone',
+            email: 'email'
+          })
+        .first();
+
+        return user;
+    },
+
     async insert(request) {
         let { name, phone, email, pass } = request.body;
+
+        if(getByEmail(email)) {
+             throw new Error('Email exists');
+        }
+
         pass = createPass(pass);
         const [id] = await connection.table('users').insert(
             {
@@ -76,12 +95,11 @@ module.exports = {
     },
 
     async update(request, id) {
-        const { name, phone, email } = request.body;
+        const { name, phone } = request.body;
         await connection.table('users').update(
             {
                 name,
                 phone,
-                email,
             }
         ).where('id', id);
 
