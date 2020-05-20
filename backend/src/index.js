@@ -12,6 +12,8 @@ const app = express();
 
 const routes = require('./routes');
 
+const swagger = require('./config/swagger');
+
 app.use(cors({
     "origin": "*",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -26,6 +28,8 @@ app.use(bodyParser.json());
 app.use(morgan('combined'));
 
 app.use(routes);
+
+swagger(app);
 
 app.listen(3333, () => {
     console.log('Listem on port 3333!');
