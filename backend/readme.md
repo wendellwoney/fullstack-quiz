@@ -1,4 +1,4 @@
-## INSTALL PROJECT AFTER CLONE
+### INSTALL PROJECT AFTER CLONE
 - npm install
 
 ### Migrate data base
