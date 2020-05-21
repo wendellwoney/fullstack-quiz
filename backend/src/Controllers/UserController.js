@@ -6,6 +6,11 @@ module.exports = {
         response.json(await userDao.getAll());
     },
 
+    async getById(request,response) {
+        const {id} = request.params;
+        response.json(await userDao.getById(id));
+    },
+
     async create(request, response) {
         try{
             let id = await userDao.insert(request);
