@@ -3,7 +3,7 @@ const userDao = require('../Dao/userDao');
 module.exports = { 
 
     async get(request, response) {
-        response.json(await userDao.getAll());
+        response.status(200).json(await userDao.getAll());
     },
 
     async getById(request,response) {
