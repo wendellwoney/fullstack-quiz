@@ -13,6 +13,7 @@ module.exports = {
             .where('question_id', '=', question.id);
             let questionAdd = {
                 id: question.id,
+                active: question.active,
                 title: question.title,
                 date_insert: question.date_insert,
                 discipline: discipline,
@@ -29,16 +30,21 @@ module.exports = {
         .where('questions.id', id)
         .select('*')
         .first();
-
+        if(!question) {
+            return null;
+        }
         const discipline = await connection.table('disciplines')
             .select('*')
             .where('id', '=', question.discipline_id).first();
+
         const alternatives = await connection.table('alternatives')
             .select('*')
             .where('question_id', '=', question.id);
+
         let questionAdd = {
             id: question.id,
             title: question.title,
+            active: question.active,
             date_insert: question.date_insert,
             discipline: discipline,
             alternatives: alternatives
@@ -79,21 +85,21 @@ module.exports = {
     },
 
     async update(request, id) {
-        const { title, discipline_id, active } = request.body;
+        const { title, active } = request.body;
         const { alternatives } = request.body;
         await connection.table('questions').update(
             {
-                discipline_id,
                 title,
                 active
             }
         ).where('id', id);
 
         alternatives.map( async function(alternative) {
-            if(alternative.id == null) {
+            if(!alternative.id) {
                 await connection.table('alternatives').insert({
                     title: alternative.title,
-                    correct: alternative.correct
+                    correct: alternative.correct,
+                    question_id: id
                 })
             } else {
                 await connection.table('alternatives').update({

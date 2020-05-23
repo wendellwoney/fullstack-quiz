@@ -27,18 +27,16 @@ module.exports = {
 
     async update(request, response) {
         const {id} = request.params;
-        const user = await questionDao.getById(id);
-        if(!user) {
-            return response.status(404).send({ err : 'User not found!'})
+        const question = await questionDao.getById(id);
+        if(!question) {
+            return response.status(404).send({ err : 'Question not found!'})
         }
         try{
             await questionDao.update(request, id);
-            let upUser = await questionDao.getById(id);
-
-            return response.status(200).json(upUser);
-        } catch(err)
-        {
-            return response.status(500).send({ err : 'Not update user, try again.'})
+            let upQuestion = await questionDao.getById(id);
+            return response.status(200).json(upQuestion);
+        } catch(err) {
+            return response.status(500).send({ err : 'Not update question, try again.'})
         }
     },
 

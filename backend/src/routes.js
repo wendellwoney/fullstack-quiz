@@ -28,6 +28,7 @@ routes.delete('/discipline/:id', loginController.verifyJWT, disciplineController
 routes.get('/question', loginController.verifyJWT, questionController.get);
 routes.get('/question/:id', loginController.verifyJWT, questionController.getById);
 routes.post('/question', loginController.verifyJWT, questionController.create);
+routes.put('/question/:id', loginController.verifyJWT, questionController.update);
 //END QUESTION
 
 module.exports = routes;
