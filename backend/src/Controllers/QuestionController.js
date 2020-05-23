@@ -42,15 +42,15 @@ module.exports = {
 
     async delete(request, response) {
         const {id} = request.params;
-        const user = await questionDao.getById(id);
-        if(!user) {
-            return response.status(404).send({ err: 'User not found!'});
+        const question = await questionDao.getById(id);
+        if(!question) {
+            return response.status(404).send({ err: 'Question not found!'});
         }
         try{
             await questionDao.delete(id);
             return response.status(204).send();
         } catch(err) {
-            return response.status(500).send({ err: 'Not delete user, try again.'});
+            return response.status(500).send({ err: 'Not delete question, try again.'});
         }
     },
 }

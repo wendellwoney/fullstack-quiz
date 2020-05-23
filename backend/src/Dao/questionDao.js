@@ -113,6 +113,7 @@ module.exports = {
     },
 
     async delete(id) {
+        await connection.table('alternatives').where('question_id', id).delete();
         await connection.table('questions').where('id', id).delete();
     },
 
