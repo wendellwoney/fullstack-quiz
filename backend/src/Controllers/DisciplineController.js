@@ -6,7 +6,7 @@ module.exports = {
         response.status(200).json(await disciplineDao.getAll());
     },
 
-    async getByid(request, response) {
+    async getById(request, response) {
         const {id} = request.params;
         const discipline = await disciplineDao.getById(id);
         if(!discipline) {
