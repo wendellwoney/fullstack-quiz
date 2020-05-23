@@ -1,4 +1,3 @@
-var jwt = require('jsonwebtoken');
 const disciplineDao = require('../Dao/disciplineDao');
 require("dotenv-safe").config();
 
